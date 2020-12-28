@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load product_tags %}
+    {% load comment_tags %}
+</head>
+<body>
+{% for value in data %}
+    {% comment_post value.id as com %}
+    {% render_comments com request %}
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,137 @@
+{% extends 'front/base.html' %}
+{% block title %} Konetos | E-Market {% endblock %}
+{% block content %}
+{% load static %}
+{% load cart_tag %}
+ <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-body">
+                           <div class="row">
+                            <p class="text-success" id="final_msg"> Order submited.</p>
+                              <div class="col-sm-12">
+                                 <h5>Order Summary</h5>
+                                 <div class="table-responsive-sm">
+                                  <form id="orderform" action="" method="POST" >
+                                  {% csrf_token %}
+                              
+                                    <table class="table table-striped" id="tableData">
+                                       <thead>
+                                          <tr  data-param1="0">
+                                             <th class="text-center" scope="col">#</th>
+                                             <th scope="col">Item</th>
+                                             <th scope="col">Image</th>
+                                             <th class="text-center" scope="col">Quantity</th>
+                                             <th class="text-center" scope="col">Price</th>
+                                             <th class="text-center" scope="col">Totals</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                       {% for key,value in request.session.cart.items %}
+                                          <tr data-param1="{{ value.price|multiply:value.quantity }}">
+                                             <td class="text-center" scope="row">{{ forloop.counter }}</td>
+                                             <td>
+                                                <h6 class="mb-0">{{value.name}}</h6>
+                                             </td>
+                                              <td>
+                                                <h6 class="mb-0"><img src="{{value.image}}" style="height: 50px; width: 50px;" alt=""></h6>
+                                             </td>
+                                             <td class="text-center">{{value.quantity}} </td>
+                                             <td class="text-center">{{value.price}}</td>
+                                             <td class="text-center"><b>{{ value.price|multiply:value.quantity }}</b></td>
+                                          </tr>
+                                       <input type="hidden" name="name[]" value="{{value.name}}">
+                                       <input type="hidden" name="price[]" value="{{value.price}}">
+                                       <input type="hidden" name="qty[]" value="{{value.quantity}}">
+
+                                          <input id="total_price" type="hidden" value="" name="subtotal">
+
+                                       {% endfor %}
+                                       
+                                       </tbody>
+                                    </table>
+                                    <table class="table table-striped">
+                                       <tbody>
+                                          <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td>SubTotal</td>
+                                             <td id="total"><b></b></td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                      <div class="col-md-12 text-right">
+                                 <button type="button" class="btn btn-link mr-3"><i class="ri-printer-line"></i> Download Print</button>
+                                 <button type="submit" class="btn btn-dark pull-right">Submit</button>
+                              </div>
+                                  </form>
+                                 </div>
+                              </div>
+                              <div class="col-sm-6"></div>
+
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+
+$(document).ready(function(){
+    var TotalValue = 0;
+    var id =$(this).data('value');
+    
+    var TotalValue = 0;
+    $("#tableData tr").each(function(){
+
+          var param1 = $(this).data('param1');
+          TotalValue += parseFloat(param1);
+          
+    });
+     $("#total").text(TotalValue);
+     $("#total_price").val(TotalValue);
+    
+});
+</script>
+
+<script>
+   /// post
+$('#orderform').submit(function(e){
+        e.preventDefault();
+
+        $form = $(this);
+        var formData = new FormData(this);
+
+
+        $.ajax({
+            url: "{% url 'product:order-submit' %}",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+              Swal.fire('Your order has been submited!')
+
+               window.setTimeout(function() {
+                    window.location.href = '{% url 'product:e-market' %}';
+                }, 2000);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+    });
+/// post
+
+</script>
+{% endblock content %}

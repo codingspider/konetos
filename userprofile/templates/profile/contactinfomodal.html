@@ -1,0 +1,157 @@
+<!-- Modal -->
+{% load static %}
+<style>
+    .modal-dialog {
+    margin-top: 25%;
+}
+
+</style>
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Contact Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="contactform">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="oldusername" name="username" class="form-control" placeholder="username">
+                        </div>
+                        <div class="col">
+                            <input type="text"  id="oldemail" name="email" class="form-control" placeholder="Email">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="oldphone" name="phone" class="form-control" placeholder="Mobile">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="oldaddress" name="address" class="form-control" placeholder="Address">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col">
+                            <input type="text" id="oldwebsite" name="website" class="form-control" placeholder="Website">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="oldsocial" name="social" class="form-control" placeholder="Social Link">
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <input type="date" id="olddob" name="dob" class="form-control" placeholder="Date of Birth">
+                        </div>
+                        <div class="col">
+                            <select id="inputState" name="gender" class="form-control">
+                                <option selected>Choose Gender...</option>
+                                <option value="male">Male</option>
+                                <option value="female">FeMale</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <input type="text" id="oldlanguage" name="language" class="form-control" placeholder="Language">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="oldinterest" name="interest" class="form-control" placeholder="Interest">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+   /// post
+$('#contactform').submit(function(e){
+        e.preventDefault();
+
+        $form = $(this);
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{% url 'user:contact-information-create' %}",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                fetchData();
+                $('#contactModal').modal('hide');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+    });
+ function fetchData() {
+ var id = "{{ user.id }}"
+    $.ajax({
+            type: 'GET',
+            url: "/user/get-contact-information/"+id,
+            success:function(data){
+
+             $('#username').text(data[0]['username']);
+             $('#email').text(data[0]['email']);
+             $('#mobile').text(data[0]['mobile']);
+             $('#address').text(data[0]['address']);
+             $('#website').text(data[0]['website']);
+             $('#social').text(data[0]['social_link']);
+             $('#birthday').text(data[0]['birthday']);
+             $('#gender').text(data[0]['gender']);
+             $('#language').text(data[0]['language']);
+             $('#interest').text(data[0]['interest']);
+
+             $('#oldusername').val(data[0]['username']);
+             $('#oldemail').val(data[0]['email']);
+             $('#oldmobile').val(data[0]['mobile']);
+             $('#oldaddress').val(data[0]['address']);
+             $('#oldwebsite').val(data[0]['website']);
+             $('#oldsocial').val(data[0]['social_link']);
+             $('#olddob').val(data[0]['birthday']);
+             $('#oldgender').val(data[0]['gender']);
+             $('#oldlanguage').val(data[0]['language']);
+             $('#oldinterest').val(data[0]['interest']);
+            }
+        });
+
+};
+/// post
+
+
+
+</script>
+
+<script>
+$(document).ready(function(){
+   fetchData();
+
+});
+
+</script>

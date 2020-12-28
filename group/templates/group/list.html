@@ -1,0 +1,79 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block title %} Konetos | Group List {% endblock %}
+{% block content %}
+{% load product_tags %}
+ <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                   {% for group in groups %}
+                  <div class="col-md-6 col-lg-4">
+                     <div class="iq-card">
+                        {% if cover.cover %}
+                        <div class="top-bg-image">
+                           <img src="/media/{{cover.cover}}" class="img-fluid w-100" alt="group-bg">
+                        </div>
+                        {% endif %}
+                        <div class="iq-card-body text-center">
+                           {% if profile.profile %}
+                           <div class="group-icon">
+                              <img src="/media/{{profile.profile}}" alt="profile-img" class="rounded-circle img-fluid avatar-120">
+                           </div>
+                            {% endif %}
+                           <div class="group-info pt-3 pb-3">
+                              <h4>{{ group.name }}</h4>
+                              <p>{{ group.description }}</p>
+                           </div>
+                           <div class="group-details d-inline-block pb-3">
+                              <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Post</p>
+                                    <h6>{% count_group_member group.id %}</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Member</p>
+                                    <h6>{{member}}</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Visit</p>
+                                    <h6>1.2k</h6>
+                                 </li>
+                              </ul>
+                           </div>
+                           <div class="group-member mb-3">
+                              <div class="iq-media-group">
+                                 <a href="#" class="iq-media">
+                                 <img class="img-fluid avatar-40 rounded-circle" src="{% static 'images/user/05.jpg' %}" alt="">
+                                 </a>
+                                 <a href="#" class="iq-media">
+                                 <img class="img-fluid avatar-40 rounded-circle" src="{% static 'images/user/06.jpg' %}" alt="">
+                                 </a>
+                                 <a href="#" class="iq-media">
+                                 <img class="img-fluid avatar-40 rounded-circle" src="{% static 'images/user/07.jpg' %}" alt="">
+                                 </a>
+                                 <a href="#" class="iq-media">
+                                 <img class="img-fluid avatar-40 rounded-circle" src="{% static 'images/user/08.jpg' %}" alt="">
+                                 </a>
+                                 <a href="#" class="iq-media">
+                                 <img class="img-fluid avatar-40 rounded-circle" src="{% static 'images/user/09.jpg' %}" alt="">
+                                 </a>
+                                 <a href="#" class="iq-media">
+                                 <img class="img-fluid avatar-40 rounded-circle" src="{% static 'images/user/10.jpg' %}" alt="">
+                                 </a>
+                              </div>
+                           </div>
+                            {% if owner.user_id == userid %}
+                              <a href="{% url 'group:manage-group' group.id  %}"  class="btn d-block w-100" style="background-color: #27b6b6; color: white;">Manage Group </a>
+                            {% else %}
+                             <a href="{% url 'group:user-save-to-group' userid  %}" class="btn d-block w-100" style="background-color: #27b6b6; color: white;">Join Group </a>
+                            {% endif %}
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+{% endblock content %}

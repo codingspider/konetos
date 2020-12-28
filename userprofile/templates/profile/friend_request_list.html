@@ -1,0 +1,39 @@
+{% extends 'front/base.html' %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+ <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                           <div class="iq-header-title">
+                              <h4 class="card-title">Friend Request</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <ul class="request-list list-inline m-0 p-0">
+                               {% for value in data %}
+                              <li class="d-flex align-items-center">
+                                 <div class="user-img img-fluid"><img src="/media/{% user_image value.user_id %}" alt="story-img" class="rounded-circle avatar-40"></div>
+                                 <div class="media-support-info ml-3">
+                                    <h6>{% user_name value.user_id %}</h6>
+                                    <p class="mb-0">{% calc_review_count value.user_id %}  friends</p>
+                                 </div>
+                                 <div class="d-flex align-items-center">
+                                    <a href="{% url 'user:confirm-request' value.id %}" class="mr-3 btn rounded" style="background-color: #27b6b6; color: white;">Confirm</a>
+                                    <a href="{% url 'user:delete-request' value.id %}" class="mr-3 btn btn-secondary rounded">Delete Request</a>
+                                 </div>
+                              </li>
+                               {% endfor %}
+
+                           </ul>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock content %}

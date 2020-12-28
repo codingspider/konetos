@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load product_tags %}
+{% load notification_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}konetos{% endblock %}</title>
+   <link rel="shortcut icon" href="/media/{{ icon }}" />
+    {% block css %}
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <!-- Typography CSS -->
+      <link rel="stylesheet" href="{% static 'css/typography.css' %}">
+      <!-- Style CSS -->
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <!-- Responsive CSS -->
+      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+      <link rel="stylesheet" href="{% static 'css/login.css' %}">
+      <link rel="stylesheet" href="{% static 'css/all.css' %}">
+      <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+<!--      <script src = "//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+<!--      <script src = "//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+   {% block extrahead %}
+        {% include_notify_js_variables %}
+    {% endblock %}
+   <style>
+       button, input, optgroup, select, textarea{
+       line-height: 2;
+       }
+       .navbar-list li{
+        text-align: center;
+       }
+
+    .list-group-item {
+        padding: 0;
+
+    }
+    .dropdown-menu{
+        font-size: -1rem;
+        border:none;
+    }
+   </style>
+    {% endblock css %}
+
+</head>
+<body class="right-column-fixed">
+
+<!-- loader Start -->
+      <div id="loading">
+         <div id="loading-center">
+         </div>
+      </div>
+      <!-- loader END -->
+      <!-- Wrapper Start -->
+      <div class="wrapper">
+         <!-- Sidebar  -->
+          {% if user.is_authenticated %}
+         <div class="iq-sidebar">
+            <div id="sidebar-scrollbar" class="text-dark" >
+               <nav class="iq-sidebar-menu">
+                  <ul id="iq-sidebar-toggle" class="iq-menu">
+                     <li class="active">
+                        <a href="{% url 'user:news-feed' %}" class="iq-waves-effect"><i class=" ri-newspaper-fill"></i><span>Newsfeed</span></a>
+                     </li>
+                     <li>
+<!--                        <a href="{% url 'user:profile' %}" class="iq-waves-effect"><i class="ri-shield-user-line"></i><span>Profile</span></a>-->
+                     </li>
+                     <li>
+                        <a href="{% url 'friendship:friend-list' %}" class="iq-waves-effect"><i class=" ri-group-fill"></i><span>Follower List</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'group:list' %}" class="iq-waves-effect"><i class=" ri-group-2-line"></i><span>Group</span></a>
+                     </li>
+
+                     <li>
+                        <a href="{% url 'group:create-group' %}" class="iq-waves-effect"><i class="fa fa-users"></i><span>Create Group</span></a>
+                     </li>
+						<li>
+                        <a href="{% url 'product:e-market' %}" class="iq-waves-effect"><i class="  ri-shopping-cart-line"></i><span>E-market</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'channel:channel-list' %}" class="iq-waves-effect"><i class="ri-clapperboard-fill"></i><span>Channels List</span></a>
+                     <li>
+                        <a href="{% url 'user:profile-image' %}" class="iq-waves-effect"><i class="las la-image"></i><span>Profile Image</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'user:profile-video' %}" class="iq-waves-effect"><i class=" ri-vidicon-2-line"></i><span>Profile Video</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'user:calendar' %}" class="iq-waves-effect"><i class=" ri-calendar-event-line"></i><span>Profile Events</span></a>
+                     </li>
+                     <li>
+                        <a href="/notifications/all/" class="iq-waves-effect"><i class=" ri-notification-3-fill"></i><span>Notification</span></a>
+                     </li>
+
+                     <li>
+                        <a href="{% url 'user:user-friend-request' %}" class="iq-waves-effect"><i class=" ri-git-pull-request-line"></i><span>Friend Request</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'chat:chat' %}" class="iq-waves-effect"><i class=" ri-message-fill"></i><span>Chat</span></a>
+                      </li>
+					  <li>
+                        <a href="{% url 'todo:todo-list' %}" class="iq-waves-effect"><i class=" ri-todo-fill"></i><span>Todo</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'blog:blog-list' %}" class="iq-waves-effect"><i class=" ri-newspaper-fill"></i><span>Blog</span></a>
+                     </li>
+                     <li>
+                        <a href="{% url 'user:user-birthday' %}" class="iq-waves-effect"><i class=" ri-tv-fill"></i><span>Birthday</span></a>
+                     </li>
+					 <li>
+                        <a href="{% url 'user:calendar' %}" class="iq-waves-effect"><i class=" ri-database-fill"></i><span>Calendar</span></a>
+                     </li>
+
+
+                  </ul>
+               </nav>
+               <div class="p-3"></div>
+            </div>
+         </div>
+         {% endif %}
+
+         {% if user.is_authenticated %}
+         <!-- TOP Nav Bar -->
+         <div class="iq-top-navbar">
+            <div class="iq-navbar-custom">
+               <nav class="navbar navbar-expand-lg navbar-light p-0">
+                  <div class="iq-navbar-logo d-flex justify-content-between">
+                     <a href="{% url 'user:profile' %}">
+                     <img src="/media/{{ logo }}" class="img-fluid" alt="">
+                     <!-- <span><img src="{% static 'images/logo-awesome.png' %}" class="img-fluid" alt=""></span> -->
+                     <span><img src="{% static 'images/logo-awesome.png' %}" class="img-fluid" alt=""></span>
+                     </a>
+                     <div class="iq-menu-bt align-self-center">
+                     <div class="wrapper-menu">
+                        <div class="main-circle"><i class="ri-menu-line"></i></div>
+                     </div>
+                  </div>
+                  </div>
+                  <div class="iq-search-bar">
+                     <form action="{% url 'user:search' %}" class="searchbox" method="post">
+                        {% csrf_token %}
+                        <input type="text" class="text search-input" name="username" placeholder="Type here to search...">
+
+                        <button class="search-link " style="border:none;" type="submit"></button>
+                     </form>
+                  </div>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"  aria-label="Toggle navigation">
+                  <i class="ri-menu-3-line"></i>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav ml-auto navbar-list">
+                        <li>
+                           <a href="{% url 'user:profile' %}" class="iq-waves-effect d-flex align-items-center">
+                              {% if user.is_authenticated %}
+                               {% user_image user.id as profile_image %}
+                               {% if profile_image %}
+                              <img src="/media/{{profile_image}}" class="img-fluid rounded-circle mr-3" alt="user">
+                               {% else %}
+                              <img src="{% static 'images/user/1.jpg' %}" class="img-fluid rounded-circle mr-3" alt="user">
+                               {% endif %}
+                               {% endif %}
+                              <div class="caption">
+                                  {% if user.is_authenticated %}
+                                    <h6 class="mb-0 line-height">{{ user.get_username }}</h6>
+                                     {% endif %}
+                              </div>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="{% url 'product:cart_detail' %}" class="iq-waves-effect d-flex align-items-center">
+                              <i class="fa fa-shopping-cart"></i> <span class="badge">{{request.session.cart|length}}</span>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="search-toggle iq-waves-effect" href="#"><i class="ri-group-line text-secondary"></i></a>
+                           <div class="iq-sub-dropdown iq-sub-dropdown-large">
+                              <div class="iq-card shadow-none m-0">
+                                 <div class="iq-card-body p-0 ">
+                                    <div class=" p-3">
+                                       <h5 class="mb-0 text-white">follower Request<small class="badge  badge-light float-right pt-1"></small></h5>
+                                    </div>
+
+
+                                     {% for value in friend_req %}
+                                    <div class="iq-follower-request">
+                                       <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
+                                          <div class="d-flex align-items-center">
+                                             <div class="">
+                                                <img class="avatar-40 rounded" src="/media/{% user_image value.following_id %}" alt="">
+                                             </div>
+                                             <div class="media-body ml-3">
+                                                <h6 class="mb-0 ">{% user_name value.following_id %}</h6>
+                                                <p class="mb-0">{% calc_review_count value.following_id %} followers</p>
+                                             </div>
+                                          </div>
+                                          <div class="d-flex align-items-center">
+                                             <a href="{% url 'user:confirm-request' value.id %}" class="mr-3 btn rounded" style="background-color: #27b6b6; color: white;">Confirm</a>
+                                             <a href="{% url 'user:delete-request' value.id %}" class="mr-3 btn btn-secondary rounded">Delete Request</a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                     {% endfor %}
+                                     {% if friend_req %}
+                                    <div class="text-center">
+                                       <a href="{% url 'user:user-friend-request' %}" class="mr-3 btn ">View More Request</a>
+                                    </div>
+                                     {% else %}
+                                     <a href="#"> No Friend Request! </a>
+                                     {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                        </li>
+                        <li class="dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false"><i class="fa fa-globe"></i></a>
+                           <ul class="dropdown-menu" style="left: auto;right: 0;">
+                              <li>
+                                  <div class="notificationPanel"
+                                       style="position:relative; width: 100%; overflow: hidden;  min-width: 300px;">
+                                      <div class="notificationContent" style="overflow-y: scroll; height: 100%;">
+                                          <ul class="notification-box-list" style="margin:0; padding:0;list-style-type: none;">
+                                              {% render_notifications using user.notifications.active.prefetch for box %}
+                                              <li style="background-color: #ddd; text-align: center;">
+<!--                                                  <a href="/notifications/all/" style="color: black;">All Notifications</a>-->
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </li>
+                          </ul>
+                         </li>
+                        <li class="nav-item dropdown">
+                           <a href="#" class="search-toggle iq-waves-effect">
+                              <!-- <i class="ri-mail-fill text-secondary"></i> -->
+                              <i class="ri-mail-fill text-secondary"></i>
+                               {% if un_msg %}
+                               <small class="badge  badge-light pt-1">{{un_msg}}</small>
+                               {% endif %}
+                           </a>
+                           <div class="iq-sub-dropdown">
+                              <div class="iq-card shadow-none m-0">
+                                 <div class="iq-card-body p-0 ">
+                                    <div class=" p-3">
+                                       <h5 class="mb-0 text-white">All Messages</h5>
+                                    </div>
+                                     {% if un_msg > 0 %}
+                                     {% for value in message %}
+                                        <a href="/dialogs/{% user_name value.sender_id %}" class="iq-sub-card" >
+                                       <div class="media align-items-center">
+                                          <div class="">
+                                             <img class="avatar-40 rounded" src="/media/{% user_image value.sender_id %}" alt="">
+                                          </div>
+                                          <div class="media-body ml-3">
+                                             <h6 class="mb-0 ">{% user_name value.sender_id %}</h6>
+                                             <small class="float-left font-size-12">{{ value.created}}</small>
+                                          </div>
+                                       </div>
+                                    </a>
+                                     {% endfor %}
+                                     {% else %}
+                                     <p>No Message</p>
+                                     {% endif %}
+
+                                 </div>
+                              </div>
+                           </div>
+                        </li>
+                     </ul>
+                     <ul class="navbar-list">
+                        <li>
+                           <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                           <i class="ri-arrow-down-s-fill text-secondary"></i>
+                           </a>
+                           <div class="iq-sub-dropdown iq-user-dropdown">
+                              <div class="iq-card shadow-none m-0">
+                                 <div class="iq-card-body p-0 ">
+                                    <div class=" p-3 line-height">
+                                       <h5 class="mb-0 text-white line-height">Hello Hamza Don</h5>
+                                       <span class="text-white font-size-12">Available</span>
+                                    </div>
+                                    <a href="{% url 'user:profile' %}" class="iq-sub-card iq--hover">
+                                       <div class="media align-items-center">
+                                          <div class="rounded iq-card-icon iq-">
+                                             <i class="ri-file-user-line"></i>
+                                          </div>
+                                          <div class="media-body ml-3">
+                                             <h6 class="mb-0 ">My Profile</h6>
+                                             <p class="mb-0 font-size-12">View personal profile details.</p>
+                                          </div>
+                                       </div>
+                                    </a>
+<!--                                    <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover">-->
+<!--                                       <div class="media align-items-center">-->
+<!--                                          <div class="rounded iq-card-icon iq-bg-warning">-->
+<!--                                             <i class="ri-profile-line"></i>-->
+<!--                                          </div>-->
+<!--                                          <div class="media-body ml-3">-->
+<!--                                             <h6 class="mb-0 ">Edit Profile</h6>-->
+<!--                                             <p class="mb-0 font-size-12">Modify your personal details.</p>-->
+<!--                                          </div>-->
+<!--                                       </div>-->
+<!--                                    </a>-->
+                                    <a href="{% url 'user:account-setting' %}" class="iq-sub-card iq-bg-info-hover">
+                                       <div class="media align-items-center">
+                                          <div class="rounded iq-card-icon iq-bg-info">
+                                             <i class="ri-account-box-line"></i>
+                                          </div>
+                                          <div class="media-body ml-3">
+                                             <h6 class="mb-0 ">Account settings</h6>
+                                             <p class="mb-0 font-size-12">Manage your account parameters.</p>
+                                          </div>
+                                       </div>
+                                    </a>
+                                    <a href="{% url 'user:privacy-setting' %}" class="iq-sub-card iq-bg-danger-hover">
+                                       <div class="media align-items-center">
+                                          <div class="rounded iq-card-icon iq-bg-danger">
+                                             <i class="ri-lock-line"></i>
+                                          </div>
+                                          <div class="media-body ml-3">
+                                             <h6 class="mb-0 ">Privacy Settings</h6>
+                                             <p class="mb-0 font-size-12">Control your privacy parameters.</p>
+                                          </div>
+                                       </div>
+                                    </a>
+                                    <div class="d-inline-block w-100 text-center p-3">
+                                       <a class=" iq-sign-btn" href="{% url 'user:logout' %}" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </div>
+         <!-- TOP Nav Bar END -->
+          {% endif %}
+
+          {% if user.is_authenticated %}
+         <!-- Right Sidebar Panel Start-->
+         <div class="right-sidebar-mini right-sidebar">
+            <div class="right-sidebar-panel p-0">
+               <div class="iq-card shadow-none">
+                  <div class="iq-card-body p-0">
+                     <div class="media-height p-3">
+                        {% if followers %}
+                         {% for friend in followers %}
+                        <div class="media align-items-center mb-4">
+                           <div class="">
+                              <img class="rounded-circle avatar-50" src="/media/{% user_image friend.user_id %}" alt="">
+                           </div>
+                           <div class="media-body ml-3">
+                              <h6 class="mb-0"><a href="/dialogs/{% user_name friend.user_id %}">{% user_name friend.user_id %}</a></h6>
+                              <span><i class="fa fa-check"> friend </i></span>
+                           </div>
+                        </div>
+                         {% endfor %}
+                         {% else %}
+                         <div class="media align-items-center mb-4">
+                           <div class="media-body ml-3">
+                              <h6 class="mb-0"><a href="#">No Friends </a></h6>
+
+                           </div>
+                        </div>
+                         {% endif %}
+
+                     </div>
+                     <div class="right-sidebar-toggle ri-chat-smile-line ri-2x mt-3" style="color: #27b6b6; border-radius: 0px 0px 0px 0px; box-shadow: 0px 0px 0px 0px;">
+                        <i class="side-left-icon"></i>
+                        <i class="side-left-icon"><span class="ml-3 d-inline-block">Close Menu</span></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Right Sidebar Panel End-->
+         {% endif %}
+         <!-- Page Content  -->
+         {% block content %}
+
+        {% endblock  %}
+      </div>
+      <!-- Wrapper END -->
+      <!-- Footer -->
+      <footer class="bg-white iq-footer">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-6">
+                  <ul class="list-inline mb-0">
+                     <li class="list-inline-item"><a href="{% url 'post:privacy' %}">Privacy Policy</a></li>
+                     <li class="list-inline-item"><a href="{% url 'post:terms' %}">Terms of Use</a></li>
+                  </ul>
+               </div>
+               <div class="col-lg-6 text-right">
+                  Copyright 2020 <a href="/">Konetos</a> All Rights Reserved.
+               </div>
+            </div>
+         </div>
+      </footer>
+
+
+{% block extra_js %}
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <!-- Appear JavaScript -->
+      <script src="{% static 'js/jquery.appear.js' %}"></script>
+      <!-- Countdown JavaScript -->
+      <script src="{% static 'js/countdown.min.js' %}"></script>
+      <!-- Counterup JavaScript -->
+      <script src="{% static 'js/waypoints.min.js' %}"></script>
+      <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+      <!-- Wow JavaScript -->
+      <script src="{% static 'js/wow.min.js' %}"></script>
+      <!-- Apexcharts JavaScript -->
+      <script src="{% static 'js/apexcharts.js' %}"></script>
+      <!-- Slick JavaScript -->
+      <script src="{% static 'js/slick.min.js' %}"></script>
+      <!-- Select2 JavaScript -->
+      <script src="{% static 'js/select2.min.js' %}"></script>
+      <!-- Owl Carousel JavaScript -->
+      <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+      <!-- Magnific Popup JavaScript -->
+      <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+      <!-- Smooth Scrollbar JavaScript -->
+      <script src="{% static 'js/smooth-scrollbar.js' %}"></script>
+      <!-- lottie JavaScript -->
+      <script src="{% static 'js/lottie.js' %}"></script>
+      <!-- am core JavaScript -->
+      <script src="{% static 'js/core.js' %}"></script>
+      <!-- am charts JavaScript -->
+      <script src="{% static 'js/charts.js' %}"></script>
+      <!-- am animated JavaScript -->
+      <script src="{% static 'js/animated.js' %}"></script>
+      <!-- am kelly JavaScript -->
+      <script src="{% static 'js/kelly.js' %}"></script>
+      <!-- am maps JavaScript -->
+      <script src="{% static 'js/maps.js' %}"></script>
+      <!-- am worldLow JavaScript -->
+      <script src="{% static 'js/worldLow.js' %}"></script>
+      <!-- Chart Custom JavaScript -->
+      <script src="{% static 'js/chart-custom.js' %}"></script>
+      <!-- Custom JavaScript -->
+      <script src="{% static 'js/custom.js' %}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <script src ="{% static 'notify/notifyX.js' %}"></script>
+
+      <script src="{% static 'fullcalendar/core/main.js' %}"></script>
+      <script src="{% static 'fullcalendar/daygrid/main.js' %}"></script>
+      <script src="{% static 'fullcalendar/timegrid/main.js' %}"></script>
+      <script src="{% static 'fullcalendar/list/main.js' %}"></script>
+{% endblock extra_js %}
+</body>
+</html>

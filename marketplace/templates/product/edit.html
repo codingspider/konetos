@@ -1,0 +1,45 @@
+{% extends 'front/base.html' %}
+{% block title %} Konetos | E-Market {% endblock %}
+{% block content %}
+{% load static %}
+<div class="container" style="margin-top: 150px;">
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <p  {% if message.tags %} class="text-success" {% endif %}> {{ message }} </p>
+    {% endfor %}
+</ul>
+{% endif %}
+
+    <form action="{% url 'product:update-product' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{id}}">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">{{ form.name.label }}</label>
+      {{ form.name }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">{{ form.price.label }}</label>
+      {{ form.price }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">{{ form.description.label }} </label>
+    {{ form.description }}
+  </div>
+         <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputAddress2">{{ form.image.label }}</label>
+            {{ form.image }}
+          </div>
+                <div class="form-group col-md-6">
+            <label for="inputAddress2">{{ form.category.label }}</label>
+            {{ form.category }}
+          </div>
+         </div>
+         <button type="submit" class="btn btn-info">Update Product</button>
+</form>
+</div>
+
+{% endblock content %}

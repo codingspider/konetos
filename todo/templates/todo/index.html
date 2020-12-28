@@ -1,0 +1,143 @@
+{% extends 'front/base.html' %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+<style>
+    .modal-dialog {
+    margin-top: 25%;
+}
+</style>
+
+<div id="content-page" class="content-page">
+            <div class="container relative">
+               <div class="row">
+                  <div class="col-lg-3">
+                     <div class="iq-card">
+                        <div class="iq-card-body">
+                           <div class="iq-todo-page">
+                              <div class="add-new-project mt-3 mb-3">
+                                 <button class="pull-right btn btn-info" data-toggle="modal" data-target="#todoModal">Add Project</button>
+                              </div>
+<!--                              <ul class="todo-task-list p-0 m-0">-->
+<!--                                 <li class="">-->
+<!--                                    <a href="javascript:void();" style="color: #27b6b6"><i class="ri-stack-fill mr-2"></i> Secrat Project</a>-->
+<!--                                    <ul id="todo-task1" class="sub-task  show mt-2 p-0">-->
+<!--                                       <li class="active"><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill "></i> All Task </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill text-warning"></i> People </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill text-danger"></i> Files <span class="badge badge-danger ml-2 float-right">44</span> </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill "></i> Statistics </a></li>-->
+<!--                                    </ul>-->
+<!--                                 </li>-->
+<!--                                 <li>-->
+<!--                                    <a href="javascript:void();" style="color: #27b6b6"><i class="ri-stack-fill mr-2"></i> Bnie Mobile App</a>-->
+<!--                                    <ul id="todo-task2" class="sub-task  mt-2 p-0">-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill "></i> All Task </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill text-warning"></i> People </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill text-danger"></i> Files <span class="badge badge-danger ml-2 float-right">20</span> </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill "></i> Statistics </a></li>-->
+<!--                                    </ul>-->
+<!--                                 </li>-->
+<!--                                 <li>-->
+<!--                                    <a href="javascript:void();" style="color: #27b6b6"><i class="ri-stack-fill mr-2"></i> New Portfolio Site</a>-->
+<!--                                    <ul id="todo-task3" class="sub-task  mt-2 p-0">-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill "></i> All Task </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill text-warning"></i> People </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill text-danger"></i> Files <span class="badge badge-danger ml-2 float-right">10</span> </a></li>-->
+<!--                                       <li><a href="javascript:void();" style="color: #27b6b6"><i class="ri-checkbox-blank-circle-fill "></i> Statistics </a></li>-->
+<!--                                    </ul>-->
+<!--                                 </li>-->
+<!--                              </ul>-->
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-9">
+                        <div class="col-md-10">
+                           <div class="iq-card">
+                              <div class="iq-card-body p-0">
+                                 <ul class="todo-task-lists m-0 p-0">
+                                    {% for value in todos %}
+                                    <li class="d-flex align-items-center p-3">
+                                       <div class="user-img img-fluid"><img src="{% static 'images/user/01.jpg' %}" alt="story-img" class="rounded-circle avatar-40"></div>
+                                       <div class="media-support-info ml-3">
+                                          <h6 class="d-inline-block">{{ value.title }}</h6>
+                                          <span class="badge badge-warning ml-3 text-white">{{ value.date }}</span>
+                                          <p class="mb-0">by {% user_name value.created_by_id %}</p>
+                                       </div>
+                                       <div class="iq-card-header-toolbar d-flex align-items-center">
+                                          <div class="custom-control custom-checkbox">
+                                             <a href="{% url 'todo:edit-todo' value.id %}"><i class="fa fa-pencil"></i></a>
+                                             <a class="text-danger" onclick="return confirm(' you want to delete?');" href="{% url 'todo:delete-todo' value.id %}"><i class="fa fa-trash"></i></a>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    {% endfor %}
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <p  {% if message.tags %} class="text-success" {% endif %}> {{ message }} </p>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="modal fade" id="todoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'todo:add-project' %}" method="post" id="contactform">
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="col">
+                            <title>{{ form.title.label }}</title>
+                            {{ form.title }}
+                        </div>
+
+                       <div class="col">
+                             {{ form.date }}
+                        </div>
+                    </div>
+                    <div class="row">
+                         <div class="col">
+                            {{ form.details }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

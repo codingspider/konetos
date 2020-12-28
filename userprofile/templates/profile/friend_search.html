@@ -1,0 +1,53 @@
+{% extends 'front/base.html' %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+ <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                           <div class="iq-header-title">
+                              <h4 class="card-title">Search Result</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <ul class="request-list list-inline m-0 p-0">
+                               {% for friend in friends %}
+                              <li class="d-flex align-items-center">
+                                 <div class="user-img img-fluid"><img src="{% static 'images/user/05.jpg' %}" alt="story-img" class="rounded-circle avatar-40"></div>
+                                 <div class="media-support-info ml-3">
+                                    <h6>{{friend.username}}</h6>
+                                    <p class="mb-0">40 </p>
+                                 </div>
+
+                                 <h1> {% friend_find friend.id user.id as fdata %}</h1>
+
+                                  {% if fdata == 'NoData' %}
+                                  <form action="{% url 'user:send-friend-request' %}" method="post">
+                                      {%  csrf_token %}
+                                     <div class="d-flex align-items-center">
+                                         <input type="hidden" name="receiver_id" value="{{ friend.id }}">
+                                          <button type="submit" class="mr-3 btn rounded" style="background-color: #27b6b6; color: white;">Send Request</button>
+                                     </div>
+                                 </form>
+                                   {% elif fdata == 1 %}
+                                        <a href="{% url 'user:cancel-request' friend.id %}" class="mr-3 btn btn-secondary rounded">Cancel sent Request</a>
+                                   {% else %}
+
+                                  {% if fdata == 2 %}
+                                         <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Friend</a>
+                                  {% endif %}
+
+                                  {% endif %}
+                              </li>
+                                {% endfor %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock content %}

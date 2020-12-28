@@ -1,0 +1,49 @@
+{% extends 'front/base.html' %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+<div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-body chat-page p-0">
+                           <div class="chat-data-block">
+                              <div class="row">
+                                 <div class="col-md-6 chat-data-left scroller">
+                                    <div class="chat-sidebar-channel scroller mt-4 pl-3">
+                                       <h5 class="">Friend List </h5>
+                                       <ul class="iq-chat-ui nav flex-column nav-pills">
+                                       {% for value in data %}
+                                          <li>
+                                             <a href="/dialogs/{% user_name value.user_id %}">
+                                                <div class="d-flex align-items-center">
+                                                   <div class="avatar mr-2">
+                                                      <img src="/media/{% user_image value.user_id %}" alt="chatuserimage" class="avatar-50 ">
+                                                      <span class="avatar-status"></span>
+                                                   </div>
+                                                   <div class="chat-sidebar-name">
+                                                      <h6 class="mb-0">{% user_name value.user_id %}</h6>
+                                                      <span><i class="fa fa-check"> friend </i></span>
+                                                   </div>
+                                                   <div class="chat-meta float-right text-center mt-2 mr-1">
+                                                      <div class="chat-msg-counter  text-white">20</div>
+                                                      <span class="text-nowrap">Chat</span>
+                                                   </div>
+                                                </div>
+                                             </a>
+                                          </li>
+                                       {% endfor %}
+                                       </ul>
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+{% endblock content%}

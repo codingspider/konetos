@@ -1,0 +1,53 @@
+{% extends 'front/base.html' %}
+{% block title %}konetos | Channel List{% endblock %}
+{% block content %}
+<div id="content-page" class="content-page">
+            <div class="container">
+               <div class="col-md-12">
+                  <a class="btn btn-success pull-right" href="{% url 'channel:channel-create' %}"> Create Channel </a>
+               </div>
+               <div class="row">
+                  {% for channel in channels %}
+                  <div class="col-md-6 col-lg-4">
+                     <div class="iq-card">
+                        {% if channel.cover %}
+                        <div class="top-bg-image">
+                           <img src="/media/{{ channel.cover }}" class="img-fluid w-100" alt="group-bg">
+                        </div>
+                        {% endif %}
+                        <div class="iq-card-body text-center">
+                           {% if channel.profile %}
+                           <div class="group-icon">
+                              <img src="/media/{{ channel.profile }}" alt="profile-img" class="rounded-circle img-fluid avatar-120">
+                           </div>
+                            {% endif %}
+                           <div class="group-info pt-3 pb-3">
+                              <h4>{{ channel.name }}</h4>
+                              <p>{{ channel.description |truncatechars:15 }}</p>
+                           </div>
+                           <div class="group-details d-inline-block pb-3">
+                              <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Post</p>
+                                    <h6>600</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Member</p>
+                                    <h6>320</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Visit</p>
+                                    <h6>1.2k</h6>
+                                 </li>
+                              </ul>
+                           </div>
+
+                           <a href="{% url 'channel:manage-channel' channel.id %}" class="btn d-block w-100" style="background-color: #27b6b6; color: white;">Manage Channel </a>
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+{% endblock content %}

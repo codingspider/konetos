@@ -1,0 +1,43 @@
+{% extends 'front/base.html' %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+<div class="container" style="margin-top: 100px;">
+    <h3>Edit</h3>
+
+
+ <form action="{% url 'todo:update-project' %}" method="post" id="contactform">
+        {% csrf_token %}
+
+        <div class="row">
+            <input type="hidden" name="pk" value="{{ data.id }}">
+            <div class="col">
+                <title>Title</title>
+                <input type="text" name="title" class="form-control" value="{{ data.title }}">
+            </div>
+
+            <div class="col">
+                 <input type="date" name="date" class="form-control" required value="{{ data.date }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <textarea name="details" id="" class="form-control"  cols="50" rows="3">{{ data.details }}</textarea>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Save changes</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

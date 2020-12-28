@@ -1,0 +1,50 @@
+{% extends 'front/base.html'%}
+{% block title %}Konetos | Blog {% endblock %}
+{% block content %}
+{% load static %}
+<div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="header-for-bg mb-4 mt-2">
+                        <div class="background-header position-relative">
+                           <img src="{% static 'images/page-img/profile-bg2.jpg' %}" class="img-fluid w-100 rounded rounded" alt="header-bg">
+                           <div class="title-on-header">
+                              <div class="data-block">
+                                 <h2>Add New Blog</h2>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="iq-card">
+                        <div class="iq-card-body">
+                           <form method="post" action="{% url 'blog:create-blog-post' %}" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="form-group">
+                                 <label for="exampleInputText1">{{ form.title.label }}</label>
+                                   {{ form.title }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.short_description.label }}</label>
+                                 {{ form.short_description }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.description.label }}</label>
+                                 {{ form.description }}
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.thumbnail.label }}</label>
+                                {{ form.thumbnail }}
+                              </div>
+                              <button type="submit" class="btn" style="background-color: #27b6b6; color: white;">Submit</button>
+                              <button type="submit" class="btn iq-bg-danger">Cancel</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'front/base.html' %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+<div class="container" style="margin-top:100px;">
+    <form action="{% url 'post:work-update' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <input type="text" name="company" value="{{ data.company }}" class="form-control" placeholder="company">
+            </div>
+            <div class="col">
+                <input type="text" name="designation" value="{{ data.designation }}" class="form-control"
+                       placeholder="designation">
+            </div>
+        </div>
+        <div class="row">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="hidden" name="pk" value="{{ data.id }}">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Save changes</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

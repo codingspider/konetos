@@ -1,0 +1,367 @@
+{% extends 'front/base.html' %}
+{% block title %}Konetos | Login {% endblock %}
+{% block content %}
+{% load static %}
+<section class="sign-in-page" style="margin-top: 20px; ">
+    <div id="container-inside">
+        <div id="circle-small"></div>
+        <div id="circle-medium"></div>
+        <div id="circle-large"></div>
+        <div id="circle-xlarge"></div>
+        <div id="circle-xxlarge"></div>
+    </div>
+    <div class="container p-0">
+        <div class="row no-gutters">
+            <div class="col-md-6 text-center pt-5">
+                <div class="sign-in-detail text-white">
+                    <a class="sign-in-logo mb-5" href="#"><img src="images/logo-full.png" class="img-fluid" alt="logo"></a>
+                    <div class="owl-carousel" data-autoplay="true" data-loop="true" data-nav="false" data-dots="true"
+                         data-items="1" data-items-laptop="1" data-items-tab="1" data-items-mobile="1"
+                         data-items-mobile-sm="1" data-margin="0">
+                        <div class="item">
+                            <img src="images/login/1.png" class="img-fluid mb-4" alt="logo">
+                            <h4 class="mb-1 text-white">Find new followers</h4>
+                            <p>It is a long established fact that a reader will be distracted by the readable
+                                content.</p>
+                        </div>
+                        <div class="item">
+                            <img src="images/login/2.png" class="img-fluid mb-4" alt="logo">
+                            <h4 class="mb-1 text-white">Connect with the world</h4>
+                            <p>It is a long established fact that a reader will be distracted by the readable
+                                content.</p>
+                        </div>
+                        <div class="item">
+                            <img src="images/login/3.png" class="img-fluid mb-4" alt="logo">
+                            <h4 class="mb-1 text-white">Create new events</h4>
+                            <p>It is a long established fact that a reader will be distracted by the readable
+                                content.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-white pt-5">
+                <div class="sign-in-from">
+                    <div id="logreg-forms">
+                        <form class="form-signin" accept="#">
+                            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
+                            <div class="social-login">
+                                <button class="btn facebook-btn social-btn" type="button" id="facebooklogin"><span><i
+                                        class="fa fa-facebook"></i> Sign in with Facebook</span></button>
+                                <button class="btn google-btn social-btn" type="button" id="googleLogin"><span><i
+                                        class="fa fa-google-plus"></i> Sign in with Google+</span></button>
+                            </div>
+                            <p style="text-align:center"> OR </p>
+                            <input type="email" id="inputEmail" name="username" class="form-control" placeholder="Email address"
+                                   required="" autofocus="">
+                            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
+                                   required="">
+
+                            <button class="btn btn-success btn-block" id="loginbtn" type="button"><i
+                                    class="fa fa-sign-in"></i> Sign in
+                            </button>
+
+                            <p style="text-align:center"> OR </p>
+                            <div style="display: none;">
+                                <input type="text" id="inputPhone" class="form-control" placeholder="PHONE" required=""
+                                   autofocus="">
+                            <div id="recaptcha-container"></div>
+                            <button class="btn btn-success btn-block" type="button" id="phoneloginbtn"><i
+                                    class="fa fa-sign-in"></i> SEND OTP
+                            </button>
+                            <input type="otp" id="inputOtp" class="form-control" placeholder="OTP" required="">
+                            <button class="btn btn-success btn-block" type="button" id="verifyotp"><i
+                                    class="fa fa-sign-in"></i> VERIFY OTP
+                            </button>
+                            </div>
+
+
+                            <hr>
+                            <!-- <p>Don't have an account!</p>  -->
+                            <a href="/signup" class="btn btn-primary btn-block" type="button" id="btn-signup"><i
+                                    class="fa fa-user-plus"></i> Sign up New Account
+                            </a>
+                        </form>
+
+                        <form action="/reset/password/" class="form-reset">
+                            <input type="email" id="resetEmail" class="form-control" placeholder="Email address"
+                                   required="" autofocus="">
+                            <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+                            <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
+                        </form>
+
+                        <form action="#" class="form-signup">
+                            <div class="social-login">
+                                <button class="btn facebook-btn social-btn" type="button"><span><i
+                                        class="fab fa-facebook-f"></i> Sign in with Facebook</span></button>
+                            </div>
+                            <div class="social-login">
+                                <button class="btn google-btn social-btn" type="button"><span><i
+                                        class="fab fa-google-plus-g"></i> Sign in with Google+</span></button>
+                            </div>
+
+                            <p style="text-align:center">OR</p>
+
+                            <input type="email" id="useremail" class="form-control" placeholder="Email address" required
+                                   autofocus="">
+                            <input type="password" id="userpass" class="form-control" placeholder="Password" required
+                                   autofocus="">
+
+                            <button class="btn btn-primary btn-block" type="button" id="signupbtn"><i
+                                    class="fas fa-user-plus"></i> Sign Up
+                            </button>
+                            <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+                        </form>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDbl81jCjoxxH3EQSt8-z37QmRZlfYJe7c",
+    authDomain: "konetos-80b17.firebaseapp.com",
+    databaseURL: "https://konetos-80b17.firebaseio.com",
+    projectId: "konetos-80b17",
+    storageBucket: "konetos-80b17.appspot.com",
+    messagingSenderId: "783703699100",
+    appId: "1:783703699100:web:e445dca7a9b9153421c759",
+    measurementId: "G-X706K68WY2"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var signupbtn=document.getElementById("signupbtn");
+  var emailsignup=document.getElementById("useremail");
+  var passswordsignup=document.getElementById("userpass");
+
+
+  //================Signup With Email and Password==========================
+  signupbtn.onclick=function(){
+      signupbtn.disabled=true;
+      signupbtn.textContent="Registering Your Account! Please Wait";
+      firebase.auth().createUserWithEmailAndPassword(emailsignup.value,passswordsignup.value).then(function(response){
+        sendingVerifyEmail(signupbtn);
+            console.log(response);
+      })
+      .catch(function(error){
+        signupbtn.disabled=false;
+        signupbtn.textContent="Sign Up";
+          console.log(error);
+      })
+
+
+  };
+
+  function sendingVerifyEmail(button){
+     firebase.auth().currentUser.sendEmailVerification().then(function(response){
+                signupbtn.disabled=false;
+        signupbtn.textContent="Sign Up S";
+
+        console.log(response);
+     })
+     .catch(function(error){
+                signupbtn.disabled=false;
+        signupbtn.textContent="Sign Up S";
+
+         console.log(error);
+     })
+  }
+  //================End Signup With Email and Password======================
+
+  //==========================Sign in With Email and Password============================
+
+   var loginemail=document.getElementById("inputEmail");
+   var loginpassword=document.getElementById("inputPassword");
+   var loginbtn=document.getElementById("loginbtn");
+
+
+   loginbtn.onclick=function(){
+    loginbtn.disabled=true;
+    loginbtn.textContent="Logging In Please Wait..";
+       firebase.auth().signInWithEmailAndPassword(loginemail.value,loginpassword.value).then(function(response){
+           console.log(response);
+           loginbtn.disabled=false;
+    loginbtn.textContent="Sign In"
+            var userobj=response.user;
+            var token=userobj.xa;
+            var provider="email";
+            var email=loginemail.value;
+            if(token!=null && token!=undefined && token!=""){
+            sendDatatoServerPhp(email,provider,token,email);
+            }
+       })
+       .catch(function(error){
+           console.log(error);
+           loginbtn.disabled=false;
+        loginbtn.textContent="Sign In"
+
+       })
+   }
+  //======================Sign With Email and Password
+
+
+   //===================Saving Login Details in My Server Using AJAX================
+   function sendDatatoServerPhp(email,provider,token,username){
+
+        var xhr = new XMLHttpRequest();
+        //xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+        if(this.readyState === 4) {
+            console.log(this.responseText);
+            if(this.responseText=="login_success"){
+<!--                alert("Login Successfull");-->
+                location='/user/profile';
+            }
+            else if(this.responseText=="Please Verify Your Email to Get Login"){
+                alert("Please Verify Your Email to Login")
+            }
+            else{
+                alert("Error in Login");
+            }
+        }
+        });
+
+        xhr.open("POST", "http://127.0.0.1:8000/firebase_login_save",true);
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        xhr.send("email="+email+"&provider="+provider+"&username="+username+"&token="+token);
+   }
+   //===========================End Saving Details in My Server=======================
+   //=========================Login With Phone==========================
+   var loginphone=document.getElementById("phoneloginbtn");
+   var phoneinput=document.getElementById("inputPhone");
+   var otpinput=document.getElementById("inputOtp");
+   var verifyotp=document.getElementById("verifyotp");
+
+   loginphone.onclick=function(){
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'normal',
+        'callback': function(response) {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            // ...
+        },
+        'expired-callback': function() {
+            // Response expired. Ask user to solve reCAPTCHA again.
+            // ...
+        }
+        });
+
+        var cverify=window.recaptchaVerifier;
+
+        firebase.auth().signInWithPhoneNumber(phoneinput.value,cverify).then(function(response){
+            console.log(response);
+            window.confirmationResult=response;
+        }).catch(function(error){
+            console.log(error);
+        })
+   }
+
+   verifyotp.onclick=function(){
+       confirmationResult.confirm(otpinput.value).then(function(response){
+           console.log(response);
+            var userobj=response.user;
+            var token=userobj.xa;
+            var provider="phone";
+            var email=phoneinput.value;
+            if(token!=null && token!=undefined && token!=""){
+            sendDatatoServerPhp(email,provider,token,email);
+            }
+       })
+       .catch(function(error){
+           console.log(error);
+       })
+   }
+   //=================End Login With Phone=========================
+
+   ///=================Login With google===========================
+   var googleLogin=document.getElementById("googleLogin");
+
+   googleLogin.onclick=function(){
+       var provider=new firebase.auth.GoogleAuthProvider();
+
+       firebase.auth().signInWithPopup(provider).then(function(response){
+           var userobj=response.user;
+            var token=userobj.xa;
+            var provider="google";
+            var email=userobj.email;
+            if(token!=null && token!=undefined && token!=""){
+            sendDatatoServerPhp(email,provider,token,userobj.displayName);
+            }
+
+           console.log(response);
+       })
+       .catch(function(error){
+           console.log(error);
+       })
+
+
+   }
+   //=======================End Login With Google==================
+   //======================Login With Facebook==========================
+   var facebooklogin=document.getElementById("facebooklogin");
+   facebooklogin.onclick=function(){
+    var provider=new firebase.auth.FacebookAuthProvider();
+
+firebase.auth().signInWithPopup(provider).then(function(response){
+    var userobj=response.user;
+     var token=userobj.xa;
+     var provider="facebook";
+     var email=userobj.email;
+     if(token!=null && token!=undefined && token!=""){
+     sendDatatoServerPhp(email,provider,token,userobj.displayName);
+     }
+
+    console.log(response);
+})
+.catch(function(error){
+    console.log(error);
+})
+
+
+   }
+   //======================End Login With Facebook==========================
+
+</script>
+
+ <script src="{% static '/js/jquery.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var kk = $('#loginbtn');
+        kk.click(function(e) {
+         e.preventDefault();
+         var username = $('#inputEmail').val();
+         var password = $('#inputPassword').val();
+
+           $.ajax({
+            url: "/login_success/"+username+'/'+password,
+            type: 'GET',
+            success: function (data) {
+            if(data['success'] == 200){
+                console.log(data['success']);
+                window.location.href= "/user/profile/";
+               }else{
+                Swal.fire('Your Login details wrong!')
+               }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+        });
+    });
+</script>
+{% endblock content%}

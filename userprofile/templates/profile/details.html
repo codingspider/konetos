@@ -1,0 +1,108 @@
+<!-- Modal -->
+{% load static %}
+<style>
+    .modal-dialog {
+    margin-top: 25%;
+}
+
+</style>
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Details Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="detailsform">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" name="about" id="oldabout" class="form-control" placeholder="about">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="oldname" name="nick_name" class="form-control" placeholder="Nick Name">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <textarea id="oldquote" name="quote" class="form-control" cols="30" rows="5">type here</textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+   /// post
+$('#detailsform').submit(function(e){
+        e.preventDefault();
+
+        $form = $(this);
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{% url 'user:detail-information-create' %}",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                fetchDetailData();
+                $('#detailModal').modal('hide');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+    });
+ function fetchDetailData() {
+ var id = "{{ user.id }}"
+    $.ajax({
+            type: 'GET',
+            url: "/user/get-details-information/"+id,
+            success:function(data){
+
+             $('#name').text(data[0]['name']);
+             $('#oldname').val(data[0]['name']);
+             $('#detailabout').text(data[0]['about']);
+             $('#oldabout').val(data[0]['about']);
+             $('#quote').text(data[0]['quote']);
+             $('#oldquote').val(data[0]['quote']);
+
+
+            }
+        });
+
+};
+/// post
+
+
+
+</script>
+
+<script>
+$(document).ready(function(){
+   fetchDetailData();
+
+});
+
+</script>

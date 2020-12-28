@@ -1,0 +1,42 @@
+{% extends 'front/base.html' %}
+{% block title %}konetos | Channel Create {% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 100px;">
+    <form action="{% url 'channel:channel-create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                {{ form.name }}
+            </div>
+            <div class="col">
+                {{ form.category }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                {{ form.profile }}
+            </div>
+            <div class="col">
+                {{ form.cover }}
+            </div>
+            <div class="col">
+                {{ form.status }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+               {{ form.description }}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+               <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+{% endblock content %}

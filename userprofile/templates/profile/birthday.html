@@ -1,0 +1,50 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block title %}Konetos | UpComming Birthday {% endblock %}
+{% block content %}
+{% load product_tags %}
+{% load comment_tags %}
+<div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="birthday-block">
+                        <div class="iq-card">
+                           <div class="iq-card-header d-flex justify-content-between" style="border:none;">
+                              <div class="iq-header-title">
+                                 <h4 class="card-title">Upcomming Birthday</h4>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           {% for val in data %}
+                           <div class="col-md-6 col-lg-6">
+                              <div class="iq-card">
+                                 <div class="iq-card-body">
+                                    <div class="iq-birthday-block">
+                                       <div class="d-flex align-items-center justify-content-between">
+                                          <div class="d-flex align-items-center">
+                                             <a href="#">
+                                             <img src="/media/{% user_image val.user_id %}" alt="profile-img" class="img-fluid" style="width: 50px; height: 50px;">
+                                             </a>
+                                             <div class="follower-info ml-3">
+                                                <h5>{% user_name val.user_id %}</h5>
+                                                <p class="mb-0">{{ val.birthday }}</p>
+                                             </div>
+                                          </div>
+                                          <button class="btn" style = "background-color: #27b6b6; color: white">Create Card</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           {% endfor %}
+                        </div>
+                     </div>
+                    
+                  </div>
+               </div>
+            </div>
+         </div>
+
+{% endblock content %}

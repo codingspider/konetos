@@ -1,0 +1,111 @@
+<!-- Modal -->
+{% load static %}
+<style>
+    .modal-dialog {
+    margin-top: 25%;
+}
+
+</style>
+<div class="modal fade" id="relationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Place You Lived</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="relationform">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <select id="inputState" name="status" class="form-control">
+                                <option selected>Choose Relationship Status...</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="engaged">Engaged</option>
+                                <option value="divorced">Divorced</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="oldrelation" name="relation" class="form-control" placeholder="Relation">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                         <select id="member" name="member" class="form-control">
+                                <option selected>Choose Member...</option>
+                                <option value="1">Paul Molive</option>
+                                <option value="2">Anna Mull</option>
+                                <option value="3">Paige Turner</option>
+                            </select>
+
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+   /// post
+$('#relationform').submit(function(e){
+        e.preventDefault();
+
+        $form = $(this);
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{% url 'user:relation-information-create' %}",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                fetchRelationData();
+                $('#relationModal').modal('hide');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+    });
+ function fetchRelationData() {
+ var id = "{{ user.id }}"
+    $.ajax({
+            type: 'GET',
+            url: "/user/get-relation-information/"+id,
+            success:function(data){
+             $('#relation').text(data[0]['relation']);
+             $('#status').text(data[0]['status']);
+
+             $('#oldcurrent_city').val(data[0]['current_city']);
+             $('#oldrelation').val(data[0]['relation']);
+
+            }
+        });
+
+};
+/// post
+
+
+
+</script>
+
+<script>
+$(document).ready(function(){
+   fetchRelationData();
+
+});
+
+</script>

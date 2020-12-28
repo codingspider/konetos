@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+<!--      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+<!--      &lt;!&ndash; Typography CSS &ndash;&gt;-->
+<!--      <link rel="stylesheet" href="{% static 'css/typography.css' %}">-->
+<!--      &lt;!&ndash; Style CSS &ndash;&gt;-->
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!--      &lt;!&ndash; Responsive CSS &ndash;&gt;-->
+<!--      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">-->
+<!--      <link rel="stylesheet" href="{% static 'css/login.css' %}">-->
+<!--      <link rel="stylesheet" href="{% static 'css/all.css' %}">-->
+<!--      <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">-->
+</head>
+
+<body>
+{% block content %}
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+{% endblock extra_js %}
+
+</body>
+</html>

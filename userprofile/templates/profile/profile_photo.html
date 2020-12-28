@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Modal -->
+{% load static %}
+<style>
+    .modal-dialog {
+    margin-top: 25%;
+}
+
+</style>
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Place You Lived</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="profileform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="file" name="profile" class="form-control" placeholder="company">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+   /// post
+$('#profileform').submit(function(e){
+        e.preventDefault();
+
+        $form = $(this);
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{% url 'user:profile-image-create' %}",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+
+                $('#profileModal').modal('hide');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+    });
+/// post
+
+</script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>

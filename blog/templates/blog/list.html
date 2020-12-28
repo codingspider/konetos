@@ -1,0 +1,55 @@
+{% extends 'front/base.html'%}
+{% block title %}Konetos | Blog {% endblock %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+ <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="col-md-12">
+                    <a class="text-light btn d-block pull-right" href="{% url 'blog:create-blog-post' %}" style="background-color: #27b6b6; color: white;">Add Post</a>
+               </div>
+               <div class="row">
+                   {% for blog in blogs %}
+                  <div class="col-md-6 col-lg-4">
+                     <div class="iq-card">
+                        <div class="top-bg-image">
+                            {% if blog.thumbnail %}
+                           <img src="{{ blog.thumbnail.url }}" style="height: 200px;" class="img-fluid w-100" alt="group-bg">
+                            {% else %}
+                            <img src="{% static 'images/page-img/gi-1.jpg' %}" style="height: 200px;" class="img-fluid w-100" alt="group-bg">
+                            {% endif %}
+                        </div>
+                        <div class="iq-card-body text-center">
+                           <div class="group-icon">
+<!--                              <img src="{% static 'images/page-img/gi-1.jpg' %}" alt="profile-img" class="rounded-circle img-fluid avatar-120">-->
+                           </div>
+                           <div class="group-info pt-3 pb-3 mt-5">
+                              <h6><a href="">{{ blog.title }}</a></h6>
+                           </div>
+                           <div class="group-details d-inline-block pb-3">
+                              <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                 <li class="">
+                                     <p class="mb-0">Date</p>
+                                    <h6>{{ blog.created_at }}</h6>
+
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">People Liked</p>
+
+                                    <h6> {% people_like_blog blog.id  %}</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Total Visits</p>
+                                    <h6>{% people_visit_blog blog.id  %}</h6>
+                                 </li>
+                              </ul>
+                           </div>
+                           <a class="text-light btn d-block w-100" href="{% url 'blog:read-post' blog.id %}" style="background-color: #27b6b6; color: white;">Read Post</a>
+                        </div>
+                     </div>
+                  </div>
+                   {% endfor %}
+               </div>
+            </div>
+         </div>
+{% endblock content %}

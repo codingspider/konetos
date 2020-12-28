@@ -1,0 +1,53 @@
+{% extends 'front/base.html' %}
+{% block title %} Konetos | E-Market {% endblock %}
+{% block content %}
+{% load static %}
+ <div id="content-page" class="content-page">
+            <div class="container-fluid">
+
+            </div>
+            <div class="container-fluid mt-4">
+               <div class="header-for-bg mb-4 mt-2">
+                  <div class="background-header position-relative">
+                     <img src="{% static 'images/page-img/profile-bg1.jpg' %} " class="img-fluid w-100 rounded rounded" alt="header-bg">
+                     <div class="title-on-header w-75 mx-auto">
+                  </div>
+               </div>
+               <h1></h1>
+               <div class="row">
+                  {%  for product in products %}
+                  <div class="col-sm-12 col-md-4 col-lg-3">
+                     <div class="iq-card">
+                        <div class="top-bg-image">
+                           <img src="{{ product.image.url }} " style="height: 200px;" class="img-fluid w-100" alt="group-bg">
+                        </div>
+                        <div class="iq-card-body text-center">
+                           <div class="group-info">
+                              <h4 style="display: inline-block">{{ product.name |truncatechars:20 }}</h4>
+                              <p>{{ product.category }}</p>
+                           </div>
+                           <div class="group-details d-inline-block">
+                              <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                 <li class="pl-1 pr-1">
+                                    <p class="mb-0">Price</p>
+                                    <h6>${{ product.price }}</h6>
+                                 </li>
+                                 <li class="pl-1 pr-1">
+                                    <p class="mb-0">Visit</p>
+                                    <h6>1.2k</h6>
+                                 </li>
+                              </ul>
+                           </div>
+                          <a class="nav-link" style="background-color: #27b6b6; color: white;" href="{% url 'product:seller-contact' product.user_id %}">Contact</a>
+                           <a class="nav-link mt-2" style="background-color: #27b6b6; color: white;" href="{% url 'product:cart_add' product.id %}">Buy</a>
+                       </div>
+                     </div>
+                  </div>
+                 {% endfor %}
+               </div>
+            </div>
+
+             </div>
+ </div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'front/base.html' %}
+{% block title %} Konetos | E-Market {% endblock %}
+{% block content %}
+{% load static %}
+<div class="container" style="margin-top: 150px;">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <p {% if message.tags %} class="text-success" {% endif %}> {{ message }} </p>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form action="{% url 'group:create-group' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Group Name</label>
+                <input  maxlength="100" type="text" required="required" name="name" class="form-control" placeholder="Enter group name"  />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info">Add Product</button>
+    </form>
+</div>
+{% endblock content %}

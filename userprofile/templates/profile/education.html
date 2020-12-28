@@ -1,0 +1,100 @@
+<!-- Modal -->
+{% load static %}
+<style>
+    .modal-dialog {
+    margin-top: 25%;
+}
+
+</style>
+<div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Place You Lived</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="educationform">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="oldcollege" name="college" class="form-control" placeholder="college">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="oldlocation" name="location" class="form-control" placeholder="location">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+   /// post
+$('#educationform').submit(function(e){
+        e.preventDefault();
+
+        $form = $(this);
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{% url 'user:education-information-create' %}",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                fetchEducationData();
+                $('#educationModal').modal('hide');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+    });
+ function fetchEducationData() {
+ var id = "{{ user.id }}"
+    $.ajax({
+            type: 'GET',
+            url: "/user/get-education-information/"+id,
+            success:function(data){
+
+             $.each(data[0], function(i, item) {
+                  $('#college').text(data[0]['college']);
+                  $('#collegelocation').text(data[0]['location']);
+
+             });
+
+            }
+        });
+
+};
+/// post
+
+
+
+</script>
+
+<script>
+$(document).ready(function(){
+   fetchEducationData();
+
+});
+
+</script>

@@ -1,0 +1,53 @@
+{% extends 'front/base.html' %}
+{% block title %}Konetos | Groups {% endblock %}
+{% block content %}
+{% load static %}
+{% load product_tags %}
+ <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                   {% for group in groups %}
+                  <div class="col-md-6 col-lg-4">
+                     <div class="iq-card">
+                        <div class="top-bg-image">
+                           <img src="{% static 'images/page-img/profile-bg1.jpg' %}" class="img-fluid w-100" alt="group-bg">
+                        </div>
+                        <div class="iq-card-body text-center">
+                           <div class="group-icon">
+                              <img src="{% static 'images/page-img/gi-1.jpg' %}" alt="profile-img" class="rounded-circle img-fluid avatar-120">
+                           </div>
+                           <div class="group-info pt-3 pb-3">
+                              <h4>{{ group.name }}</h4>
+                              <p>Lorem Ipsum data</p>
+                           </div>
+                           <div class="group-details d-inline-block pb-3">
+                              <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Post</p>
+                                    <h6>600</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Member</p>
+                                    <h6>{% count_group_member group.id %}</h6>
+                                 </li>
+                                 <li class="pl-3 pr-3">
+                                    <p class="mb-0">Visit</p>
+                                    <h6>1.2k</h6>
+                                 </li>
+                              </ul>
+                           </div>
+                           <form action="{% url 'group:user-save-to-group' %}" method="POST" accept-charset="utf-8">
+                              {% csrf_token %}
+                            <input type="hidden" name="group_id" value="{{ group.id }}">
+                            <button type="submit" class="btn d-block w-100" style="background-color: #27b6b6; color: white;">Join</button>
+                           </form>
+                           
+                           
+                        </div>
+                     </div>
+                  </div>
+                    {% endfor %}
+               </div>
+            </div>
+         </div>
+{% endblock %}
