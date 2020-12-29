@@ -3,7 +3,7 @@
 {% block title %} Konetos | Group List {% endblock %}
 {% block content %}
 {% load product_tags %}
-{% load comment_tags %}
+
   <div id="content-page" class="content-page">
             <div class="container">
                <div class="row">
@@ -70,7 +70,7 @@
                            <div class="iq-card-body p-0">
                               <div class="row">
                                 
-                                 <div class="col-lg-8">
+                                 <div class="col-lg-12">
                                     <div id="post-modal-data" class="iq-card">
                                        <div class="iq-card-header d-flex justify-content-between">
                                           <div class="iq-header-title">
@@ -78,9 +78,9 @@
                                           </div>
                                        </div>
                                        <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
-                                          <div class="d-flex align-items-center">
+                                          <div class="d-flex align-items-center" style="width: 100%;">
                                              <div class="user-img">
-                                                <img src="{% static 'images/user/1.jpg' %}" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                                <img src="/media/{% user_image user.id %}" alt="userimg" class="avatar-60 rounded-circle img-fluid">
                                              </div>
                                              <form class="post-text ml-3 w-100" action="javascript:void();">
                                                 <input type="text" class="form-control rounded" placeholder="Share Your Thoughts" style="border:none;">
@@ -99,12 +99,12 @@
                                                 <div class="modal-body">
                                                    <div class="d-flex align-items-center">
                                                       <div class="user-img">
-                                                         <img src="{% static 'images/user/1.jpg' %}" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                                         <img src="/media/{% user_image user.id %}" alt="userimg" class="avatar-60 rounded-circle img-fluid">
                                                       </div>
                                                    <form class="post-text ml-3 w-100" method="post" id="post_form" enctype="multipart/form-data">
                                                          {% csrf_token %}
                                                       <input type="hidden" name="id" value="{{pk}}">
-                                                          <textarea style="border:none;" name="body" id="" cols="60" rows="5">Share Your Thoughts</textarea>
+                                                          <textarea style="border:1px solid;" name="body" id="" cols="100" rows="5"></textarea>
                                                    </div>
                                                    <hr>
                                                    <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
@@ -135,10 +135,10 @@
                                              <div class="user-post-data p-3">
                                                 <div class="d-flex flex-wrap">
                                                    <div class="media-support-user-img mr-3">
-                                                      <img class="rounded-circle img-fluid" src="{% static 'images/user/1.jpg' %}" alt="">
+                                                      <img class="rounded-circle img-fluid" src="/media/{% user_image post.user_id %}" alt="">
                                                    </div>
                                                    <div class="media-support-info mt-2">
-                                                      <h5 class="mb-0 d-inline-block"><a href="#" class="">Hamza Don</a></h5>
+                                                      <h5 class="mb-0 d-inline-block"><a href="#" class="">{% user_name post.user_id %}</a></h5>
                                                       <p class="ml-1 mb-0 d-inline-block">Add New Post</p>
                                                       <p class="mb-0">{{ post.created_at }} ago</p>
                                                    </div>
@@ -280,7 +280,7 @@
                                                       <div class="total-comment-block">
                                                          <div class="dropdown">
                                                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                            Comments {% get_comments_count post user %}
+                                                            Comments
                                                             </span>
                                                             <div class="dropdown-menu">
                                                                <a class="dropdown-item" href="#">Max Emum</a>
@@ -303,7 +303,9 @@
                                                 <ul class="post-comments p-0 m-0">
                                                    <li class="mb-2">
                                                       <div class="d-flex flex-wrap">
-                                                         <p class="mb-0">{% render_comments post request %} </p>
+                                                         <p class="mb-0">
+
+                                                         </p>
                                                       </div>
                                                    </li>
 

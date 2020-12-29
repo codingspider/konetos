@@ -116,7 +116,7 @@ class SettingGroupView(View):
             if datalen > 0:
                 for val in profiles:
                     profile = val.profile
-                print(profile)
+
             else:
                 profile = ''
 

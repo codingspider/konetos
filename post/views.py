@@ -16,14 +16,15 @@ from userprofile.models import Education, Work, Contact
 class PostCreateView(View):
     def post(self, request):
         if self.request.POST:
-
             body = request.POST.get('body', None)
             group_id = request.POST.get('id', None)
             if (body):
                 instance = Post.objects.create(body=body, user_id=request.user.id, group_id=group_id)
                 id = instance.pk
             else:
-                return JsonResponse({"error": 500}, json_dumps_params={'indent': 2})
+                instance = Post.objects.create(body="Share Your Thoughts", user_id=request.user.id, group_id=group_id)
+                id = instance.pk
+
             if self.request.FILES:
                 upload = request.FILES.getlist('uploadfile[]')
                 uplen = len(upload)
@@ -35,10 +36,7 @@ class PostCreateView(View):
                 if video is not None:
                     Video.objects.create(video=video, post_id=id, user_id=request.user.id)
             
-            return JsonResponse({"success": 200})
-
-        else:
-            return JsonResponse({"error": 500}, json_dumps_params={'indent': 2})
+            return redirect('user:profile')
 
 
 class PostPhotoDeleteView(View):
