@@ -4,6 +4,12 @@ from birthday.fields import BirthdayField
 from birthday.managers import BirthdayManager
 
 
+GEEKS_CHOICES = (
+    ("1", "Public"),
+    ("2", "Private"),
+)
+
+
 class Contact(models.Model):
     username = models.CharField(max_length=255,null=True, blank=True)
     email = models.CharField(max_length=255,null=True, blank=True)
@@ -63,6 +69,7 @@ class Events(models.Model):
     start = models.DateTimeField(null=True,blank=True)
     end = models.DateTimeField(null=True,blank=True)
     user_id = models.IntegerField(null=True, blank=True)
+    type = models.CharField(max_length=255,null=True,blank=True)
 
     def __str__(self):
         return self.name

@@ -58,7 +58,10 @@ INSTALLED_APPS = [
     'tools',
     'core',
     'crispy_forms',
-    'chanel'
+    'chanel',
+    # 'schedule',
+    # 'djangobower'
+
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -101,7 +104,7 @@ TEMPLATES = [
                 'userprofile.context_processors.all_friend_re',
                 'userprofile.context_processors.all_friend',
                 'userprofile.context_processors.unread_message',
-                'cart.context_processor.cart_total_amount'
+                'cart.context_processor.cart_total_amount',
             ],
         },
     },
@@ -174,4 +177,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media')
-
+#
+# BOWER_INSTALLED_APPS = (
+#     'jquery',
+#     'jquery-ui',
+#     'bootstrap'
+# )
+# BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components/')
+# STATICFILES_FINDERS = ['djangobower.finders.BowerFinder']

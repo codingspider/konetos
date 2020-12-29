@@ -1,128 +1,122 @@
 {% extends 'front/base.html' %}
 {% block content %}
-<html>
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <script>
+{% block title %}konetos | Events {% endblock %}
+{% load static %}
+{% load product_tags %}
+<style>
+    .modal-dialog {
+    margin-top: 10%;
+}
 
-        $(document).ready(function () {
-            var calendar = $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                events: [
-                    {% for event in events %}
-                        {
-                            title: "{{ event.name}}",
-                            start: '{{ event.start|date:"Y-m-d" }}',
-                            end: '{{ event.end|date:"Y-m-d" }}',
-                            id: '{{ event.id }}',
-                        },
-                    {% endfor %}
-                ],
-                selectable: true,
-                selectHelper: true,
-                editable: true,
-                eventLimit: true,
-                select: function (start, end, allDay) {
-                    var title = prompt("Enter Event Title");
-                    if (title) {
-                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                        $.ajax({
-                            type: "GET",
-                            url: '{% url 'user:add_event' %}',
-                            data: {'title': title, 'start': start, 'end': end},
-                            dataType: "json",
-                            success: function (data) {
-                                calendar.fullCalendar('refetchEvents');
-                                alert("Added Successfully");
-                            },
-                            failure: function (data) {
-                                alert('There is a problem!!!');
-                            }
-                        });
-                    }
-                },
-                eventResize: function (event) {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                        type: "GET",
-                        url: '{% url 'user:update' %}',
-                        data: {'title': title, 'start': start, 'end': end, 'id': id},
-                        dataType: "json",
-                        success: function (data) {
-                            calendar.fullCalendar('refetchEvents');
-                            alert('Event Update');
-                        },
-                        failure: function (data) {
-                            alert('There is a problem!!!');
-                        }
-                    });
-                },
+</style>
 
-                eventDrop: function (event) {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                        type: "GET",
-                        url: '{% url 'user:update' %}',
-                        data: {'title': title, 'start': start, 'end': end, 'id': id},
-                        dataType: "json",
-                        success: function (data) {
-                            calendar.fullCalendar('refetchEvents');
-                            alert('Event Update');
-                        },
-                        failure: function (data) {
-                            alert('There is a problem!!!');
-                        }
-                    });
-                },
+<div id="content-page" class="content-page">
+    <div class="container relative">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="add-new-project mt-3 mb-3">
+                    <button class="pull-right btn btn-info" data-toggle="modal" data-target="#todoModal">Add Project
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="col-md-10">
+                    <div class="iq-card">
+                        <div class="iq-card-body p-0">
+                            <ul class="todo-task-lists m-0 p-0">
+                                {% for value in events %}
+                                <li class="d-flex align-items-center p-3">
+                                    <div class="user-img img-fluid"><img src="/media/{% user_image value.user_id %}"
+                                                                         alt="story-img"
+                                                                         class="rounded-circle avatar-40"></div>
+                                    <div class="media-support-info ml-3">
+                                        <h6 class="d-inline-block">{{ value.name }}</h6>
+                                        <span class="badge badge-warning ml-3 text-white">{{ value.type }}</span>
+                                        <p class="mb-0">by {% user_name value.user_id %}</p>
+                                    </div>
+                                    <div class="iq-card-header-toolbar d-flex align-items-center">
+                                        <div class="custom-control custom-checkbox">
+                                            <a href="{% url 'user:edit-event' value.id %}"><i
+                                                    class="fa fa-pencil"></i></a>
+                                            <a class="text-danger" onclick="return confirm(' you want to delete?');"
+                                               href="{% url 'user:delete-event' value.id %}"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                eventClick: function (event) {
-                    if (confirm("Are you sure you want to remove it?")) {
-                        var id = event.id;
-                        $.ajax({
-                            type: "GET",
-                            url: '{% url 'user:remove' %}',
-                            data: {'id': id},
-                            dataType: "json",
-                            success: function (data) {
-                                calendar.fullCalendar('refetchEvents');
-                                alert('Event Removed');
-                            },
-                            failure: function (data) {
-                                alert('There is a problem!!!');
-                            }
-                        });
-                    }
-                },
-
-            });
-        });
-
-    </script>
-</head>
-<body>
-<br/>
-<h2 align="center"><a href="#">Up-coming Events</a></h2>
-<br/>
-<div class="container">
-    <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
-</html>
+</div>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <p {% if message.tags %} class="text-success" {% endif %}> {{ message }} </p>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="modal fade" id="todoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'user:add_event' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="">Title</label>
+                            <input type="text" name="title" class="form-control">
+                        </div>
+
+                        <div class="col">
+                            <label for="">Type</label>
+                            <select name="type" id="" class="form-control">
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+
+                        <div class="col">
+                            <label for="">Start</label>
+                            <input type="date" name="start" class="form-control">
+                        </div>
+
+                        <div class="col">
+                           <label for="">Start</label>
+                            <input type="date" name="end" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

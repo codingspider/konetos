@@ -83,13 +83,13 @@
                      <li>
                         <a href="{% url 'channel:channel-list' %}" class="iq-waves-effect"><i class="ri-clapperboard-fill"></i><span>Channels List</span></a>
                      <li>
-                        <a href="{% url 'user:profile-image' %}" class="iq-waves-effect"><i class="las la-image"></i><span>Profile Image</span></a>
+                        <a href="{% url 'user:profile-image' %}" class="iq-waves-effect"><i class="las la-image"></i><span>Image</span></a>
                      </li>
                      <li>
-                        <a href="{% url 'user:profile-video' %}" class="iq-waves-effect"><i class=" ri-vidicon-2-line"></i><span>Profile Video</span></a>
+                        <a href="{% url 'user:profile-video' %}" class="iq-waves-effect"><i class=" ri-vidicon-2-line"></i><span>Video</span></a>
                      </li>
                      <li>
-                        <a href="{% url 'user:calendar' %}" class="iq-waves-effect"><i class=" ri-calendar-event-line"></i><span>Profile Events</span></a>
+                        <a href="{% url 'user:events' %}" class="iq-waves-effect"><i class=" ri-calendar-event-line"></i><span>Events</span></a>
                      </li>
                      <li>
                         <a href="/notifications/all/" class="iq-waves-effect"><i class=" ri-notification-3-fill"></i><span>Notification</span></a>
@@ -102,16 +102,16 @@
                         <a href="{% url 'chat:chat' %}" class="iq-waves-effect"><i class=" ri-message-fill"></i><span>Chat</span></a>
                       </li>
 					  <li>
-                        <a href="{% url 'todo:todo-list' %}" class="iq-waves-effect"><i class=" ri-todo-fill"></i><span>Todo</span></a>
+                        <a href="{% url 'todo:todo-list' %}" class="iq-waves-effect"><i class=" ri-todo-fill"></i><span>Doings</span></a>
                      </li>
                      <li>
                         <a href="{% url 'blog:blog-list' %}" class="iq-waves-effect"><i class=" ri-newspaper-fill"></i><span>Blog</span></a>
                      </li>
                      <li>
-                        <a href="{% url 'user:user-birthday' %}" class="iq-waves-effect"><i class=" ri-tv-fill"></i><span>Birthday</span></a>
+<!--                        <a href="{% url 'user:user-birthday' %}" class="iq-waves-effect"><i class=" ri-tv-fill"></i><span>Birthday</span></a>-->
                      </li>
 					 <li>
-                        <a href="{% url 'user:calendar' %}" class="iq-waves-effect"><i class=" ri-database-fill"></i><span>Calendar</span></a>
+                        <a href="{% url 'user:events' %}" class="iq-waves-effect"><i class=" ri-database-fill"></i><span>Calendar</span></a>
                      </li>
 
 
@@ -140,7 +140,7 @@
                   </div>
                   </div>
                   <div class="iq-search-bar">
-                     <form action="{% url 'user:search' %}" class="searchbox" method="post">
+                     <form action="{% url 'user:news-feed' %}" class="searchbox" method="post">
                         {% csrf_token %}
                         <input type="text" class="text search-input" name="username" placeholder="Type here to search...">
 

@@ -35,10 +35,11 @@ urlpatterns = [
     path('user-birthday', views.UserBirthdayView.as_view(), name="user-birthday"),
     # path('calender', views.CalenderView.as_view(), name="calender"),
 
-    url('calendar/', views.calendar, name='calendar'),
-    url('add_event/', views.add_event, name='add_event'),
-    url('update/', views.update, name='update'),
-    url('remove/', views.remove, name='remove'),
+    path('events/', views.calendar, name='events'),
+    path('add_event/', views.add_event, name='add_event'),
+    path('update_event/', views.update_event, name='update_event'),
+    path('edit-event/<int:pk>', views.edit, name='edit-event'),
+    path('delete-event/<int:pk>', views.remove, name='delete-event'),
 
     path('work-remove/<int:pk>', views.WorkRemoveView.as_view(), name="work-remove"),
     path('education-remove/<int:pk>', views.EducationRemoveView.as_view(), name="education-remove"),

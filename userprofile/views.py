@@ -16,6 +16,7 @@ from post.models import Post, Photo, Following, Video, PostComment
 from django.db.models import Q
 # from groups_manager.models import Group, Member
 from notify.signals import notify
+from dateutil import parser
 
 
 class ProfileView(View):
@@ -574,39 +575,50 @@ def calendar(request):
     context = {
         "events": all_events,
     }
-    return render(request,'profile/calender.html',context)
+    return render(request,'events/calendar.html',context)
 
 
 def add_event(request):
-    start = request.GET.get("start", None)
-    end = request.GET.get("end", None)
-    title = request.GET.get("title", None)
-    event = Events(name=str(title), start=start, end=end)
+    start = request.POST.get("start", None)
+    end = request.POST.get("end", None)
+    title = request.POST.get("title", None)
+    types = request.POST.get("type", None)
+
+    event = Events(name=str(title), start=start, end=end, type=types, user_id=request.user.id)
     event.save()
-    data = {}
-    return JsonResponse(data)
+    return redirect("user:events")
 
 
-def update(request):
-    start = request.GET.get("start", None)
-    end = request.GET.get("end", None)
-    title = request.GET.get("title", None)
-    id = request.GET.get("id", None)
+def edit(request, pk):
+    event = Events.objects.get(pk=pk)
+    context = {
+        'event': event
+    }
+    return render(request, 'events/edit_event.html', context)
+
+
+def update_event(request):
+    start = parser.parse(request.POST.get('start'))
+    type = request.POST.get("type", None)
+    end = parser.parse(request.POST.get('end'))
+    title = request.POST.get("title", None)
+    id = request.POST.get("event_id", None)
     event = Events.objects.get(id=id)
     event.start = start
     event.end = end
     event.name = title
+    event.type = type
     event.save()
-    data = {}
-    return JsonResponse(data)
+    messages.success(request, 'Form submission successful')
+    return render(request, 'events/edit_event.html')
 
 
-def remove(request):
+def remove(request, pk):
     id = request.GET.get("id", None)
-    event = Events.objects.get(id=id)
+    event = Events.objects.get(pk=pk)
     event.delete()
-    data = {}
-    return JsonResponse(data)
+    messages.success(request, 'Form submission successful')
+    return redirect("user:events")
 
 
 class WorkRemoveView(View):
