@@ -48,6 +48,7 @@ urlpatterns = [
 
     path("account-setting/", views.AccountSettingView.as_view(), name="account-setting"),
     path("privacy-setting/", views.PrivacySettingView.as_view(), name="privacy-setting"),
+    path("update_server/", views.update, name="update"),
 
 
 ]
