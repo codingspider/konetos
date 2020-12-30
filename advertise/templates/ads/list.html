@@ -1,0 +1,70 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block title %}Konetos | Ads {% endblock %}
+{% block content %}
+{% load product_tags %}
+
+ <div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                           <div class="iq-header-title">
+
+                              <a class="btn btn-success pull-right" href="{% url 'advertise:create-campaign' %}">Create Campaign</a>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <div class="table-responsive">
+                              <table id="datatable" class="table table-striped table-bordered" >
+                                 <thead>
+                                    <tr>
+                                       <th>Name</th>
+                                       <th>Company</th>
+                                       <th>Budget</th>
+                                       <th>Audience</th>
+                                       <th>Start date</th>
+                                       <th>End Date</th>
+                                       <th>Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for cam in campaigns %}
+                                    <tr>
+                                       <td>{{ cam.title }}</td>
+                                       <td>{{ cam.company }}</td>
+                                       <td>{{ cam.budget }}</td>
+                                       <td>{{ cam.audience }}</td>
+                                       <td>{{ cam.start }}</td>
+                                       <td>{{ cam.end }}</td>
+                                       <td>
+                                          <a href="{% url 'advertise:edit-campaign' cam.id %}"><i
+                                                    class="fa fa-pencil"></i></a>
+                                            <a class="text-danger" onclick="return confirm(' you want to delete?');"
+                                               href="{% url 'advertise:delete-campaign' cam.id %}"><i class="fa fa-trash"></i></a>
+                                       </td>
+                                    </tr>
+                                 {% endfor %}
+                                 </tbody>
+                                 <tfoot>
+                                    <tr>
+                                       <th>Name</th>
+                                       <th>Company</th>
+                                       <th>Budget</th>
+                                       <th>Audience</th>
+                                       <th>Start date</th>
+                                       <th>End Date</th>
+                                       <th>Action</th>
+                                    </tr>
+                                 </tfoot>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+{% endblock content %}

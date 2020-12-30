@@ -1,0 +1,107 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block title %}Konetos | Create Campaign {% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{{ form.media }}            {# Adds date-picker required JS and CSS #}
+
+<div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-body">
+                             {% if form.errors %}
+                                <!-- Error messaging -->
+                                <div id="errors">
+                                    <div class="inner">
+                                        <p>There were some errors in the information you entered. Please correct the following:</p>
+                                        <ul>
+                                            {% for field in form %}
+                                                {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Error messaging -->
+                            {% endif %}
+                           <form action="{% url 'advertise:update-campaign' %}" method="post" enctype="multipart/form-data">
+                               {% csrf_token %}
+                               <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.title.label }}</label>
+                                   <input type="text" value="{{data.title}}" name="title"  class="form-control">
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputText1">{{ form.gender.label }}</label>
+                                 {{ form.gender }}
+                              </div>
+
+                               <div class="form-group">
+                                 <label for="exampleInputText2">{{ form.placement.label }}</label>
+                                   <textarea class="form-control" name="placement" id="" cols="30" rows="10">{{data.placement}}</textarea>
+                              </div>
+
+                               <div class="form-group">
+                                 <label for="exampleInputText3">{{ form.bidding.label }}</label>
+                                   <input type="number" class="form-control" name="bidding" value="{{data.bidding}}">
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.url.label }}</label>
+                                 <input type="url" class="form-control" name="url" value="{{data.url}}">
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.page.label }}</label>
+                                 {{ form.page }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">Audience </label>
+
+                                   {{ form.audience }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.start.label }}</label>
+                                  <input type="start" class="form-control" name="start" value="{{data.start}}">
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="exampleInputNumber1">{{ form.end.label }}</label>
+                                 <input type="end" class="form-control" name="end" value="{{data.end}}">
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.budget.label }}</label>
+                                 <input type="budget" class="form-control" name="budget" value="{{data.budget}}">
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.company.label }}</label>
+                                 <input type="company" class="form-control" name="company" value="{{data.company}}">
+                              </div>
+
+                               <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.status.label }}</label>
+                                 <input type="status" class="form-control" name="status" value="{{data.status}}">
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleFormControlTextarea1">{{ form.description.label }}</label>
+                                  <textarea name="description" class="form-control" cols="30" rows="10">{{ data.description }}</textarea>
+                              </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlTextarea1">{{ form.image.label }}</label>
+                                   <input type="file" name="image" class="form-control">
+                              </div>
+                               <br>
+                              <button type="submit" class="btn btn-lg" style="background-color: #27b6b6; color: white;">Submit</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+{% endblock content %}

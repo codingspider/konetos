@@ -105,16 +105,10 @@
                               <div class="row">
                                  <div class="col-lg-4">
                                     <div class="iq-card">
-                                       <div class="iq-card-body">
-<!--                                          <a href="#"><span class="badge badge-pill badge-dark font-weight-normal ml-auto mr-1"><i class="ri-star-line" bg-secondary=""></i></span> 27 Items for you</a>-->
-                                       </div>
-                                    </div>
-                                    <div class="iq-card">
                                        <div class="iq-card-header d-flex justify-content-between">
                                           <div class="iq-header-title">
                                              <h4 class="card-title">Life Event</h4>
                                           </div>
-
                                        </div>
                                        <div class="iq-card-body">
                                           <div class="row">
@@ -202,11 +196,10 @@
                                           </div>
                                           <hr>
                                           <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
-                                             <li class="text-secondary rounded p-2 pointer mr-3" style="color: #27b6b6;"><a href="#"><i class="ri-video-fill
- ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Photo/Video</span></a></li>
-                                             <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-shield-user-line ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Tag Follower</span></a></div>
-                                             <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-chat-heart-line ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Feeling/Activity</span></a></div>
-                                             <i class="ri-more-fill<li class=" bg-secondary="" rounded="" p-2="" pointer"=""></i>
+                                             <li class="text-secondary rounded p-2 pointer mr-3" style="color: #27b6b6;"><a href="#"><i class="ri-video-fill ri-2x bg-danger"></i><span class="ml-2 text-dark h6">Photo/Video</span></a></li>
+                                             <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-shield-user-line ri-2x bg-green"></i><span class="ml-2 text-dark h6">Tag Follower</span></a></div>
+                                             <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-chat-heart-line ri-2x bg-warning"></i><span class="ml-2 text-dark h6">Feeling/Activity</span></a></div>
+                                             <i class="ri-more-fill<li class=" bg-secondary="" rounded="" p-2=""></i>
                                                 <div class="iq-card-header-toolbar d-flex align-items-center">
                                                    <div class="dropdown">
                                                       <span class="dropdown-toggle" id="post-option" data-toggle="dropdown">
@@ -245,40 +238,30 @@
                                                    <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                                                       <li class="col-md-6 mb-3">
                                                           <input type="file" name="uploadfile[]" multiple  id="img" style="display:none;"/>
-                                                         <label for="img"><i class="fa fa-camera" bg-secondary=""></i> Upload Photos </label>
+                                                         <label for="img"><i class="fa fa-camera text-success"></i> Upload Photos </label>
                                                       </li>
                                                       <li class="col-md-6 mb-3">
                                                           <input type="file" name="video"  id="vdo" style="display:none;"/>
-                                                         <label for="vdo"><i class="fa fa-youtube-play" bg-secondary=""></i> Upload Video </label>
+                                                         <label for="vdo"><i class="fa fa-youtube-play text-danger"></i> Upload Video </label>
+                                                      </li>
+                                                      <li class="col-md-12 mb-3" id="divcontainer"></li>
+                                                      <li class="col-md-6 mb-3">
+                                                         <div class="text-secondary rounded p-2 pointer mr-3">
+                                                            <a href="#" class="appendbtn"><i class="ri-shield-user-line ri-2x bg-green" ></i><span class="ml-2 text-dark h6"   >Tag Follower</span></a></div>
+                                                      </li>
+                                                      <li class="col-md-6 mb-3">
+                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-chat-heart-line ri-2x bg-info" ></i><span class="ml-2 text-dark h6"   >Feeling/Activity</span></a></div>
+                                                      </li>
+                                                      <li class="col-md-6 mb-3">
+                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-checkbox-circle-fill ri-2x bg-success" ></i><span class="ml-2 text-dark h6"   >Check in</span></a></div>
+                                                      </li>
+                                                      <li class="col-md-6 mb-3">
+                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-vidicon-fill ri-2x bg-warning" ></i><span class="ml-2 text-dark h6"   >Live Video</span></a></div>
                                                       </li>
                                                        </ul>
                                                    <hr>
                                                       <button type="submit" class="btn btn-dark d-block w-100 mt-3" style="background-color: #27b6b6; color: white;">Post</button>
                                                    </form>
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-shield-user-line ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Tag Follower</span></a></div>-->
-<!--                                                      </li>-->
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-chat-heart-line ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Feeling/Activity</span></a></div>-->
-<!--                                                      </li>-->
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-checkbox-circle-fill ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Check in</span></a></div>-->
-<!--                                                      </li>-->
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-vidicon-fill ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Live Video</span></a></div>-->
-<!--                                                      </li>-->
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-image-fill ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Gif</span></a></div>-->
-<!--                                                      </li>-->
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"></a><img src="{% static 'images/small/13.png' %}" alt="icon" class="img-fluid">Create Poll</div>-->
-<!--                                                      </li>-->
-<!--                                                      <li class="col-md-6 mb-3">-->
-<!--                                                         <div class="text-secondary rounded p-2 pointer mr-3"><a href="#"><i class="ri-shield-user-line ri-2x bg-dark"></i><span class="ml-2 text-dark h6">Play with Followers</span></a></div>-->
-<!--                                                      </li>-->
-
-
-
                                                 </div>
                                              </div>
                                           </div>
@@ -976,5 +959,11 @@ function hahaFunction(elem) {
   }
 
   $('#myForm').trigger("reset");
+
+  $(".appendbtn").click(function (e) {
+   e.preventDefault();
+   
+      $("#divcontainer").append(' <input type="text" class="form-control rounded" placeholder="" style="border:1px solid black;">');
+   });
 </script>
 {% endblock content %}

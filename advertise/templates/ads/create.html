@@ -1,0 +1,113 @@
+{% extends 'front/base.html' %}
+{% load static %}
+{% block title %}Konetos | Create Campaign {% endblock %}
+{% block content %}
+
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{{ form.media }}            {# Adds date-picker required JS and CSS #}
+
+<div id="content-page" class="content-page">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-body">
+                             {% if form.errors %}
+                                <!-- Error messaging -->
+                                <div id="errors">
+                                    <div class="inner">
+                                        <p>There were some errors in the information you entered. Please correct the following:</p>
+                                        <ul>
+                                            {% for field in form %}
+                                                {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Error messaging -->
+                            {% endif %}
+                           <form method="post" action="{% url 'advertise:create-campaign' %}" enctype="multipart/form-data">
+                               {% csrf_token %}
+                               <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.title.label }}</label>
+                                 {{ form.title }}
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputText1">{{ form.gender.label }}</label>
+                                 {{ form.gender }}
+                              </div>
+
+                               <div class="form-group">
+                                 <label for="exampleInputText2">{{ form.placement.label }}</label>
+                                 {{ form.placement }}
+                              </div>
+
+                               <div class="form-group">
+                                 <label for="exampleInputText3">{{ form.bidding.label }}</label>
+                                 {{ form.bidding }}
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.url.label }}</label>
+                                 {{ form.url }}
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.page.label }}</label>
+                                 {{ form.page }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">Audience </label>
+                                 <select class="form-control form-control-lg w-100" id="audience" name="audience">
+                                     {% for country in countries %}
+                                    <option value="{{ country.id }}">{{ country.name }}</option>
+                                   {% endfor %}
+                                 </select>
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.start.label }}</label>
+                                 {{ form.start }}
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="exampleInputNumber1">{{ form.end.label }}</label>
+                                 {{ form.end }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.budget.label }}</label>
+                                 {{ form.budget }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.company.label }}</label>
+                                 {{ form.company }}
+                              </div>
+                               <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.location.label }}</label>
+                                 {{ form.location }}
+                              </div>
+                               <div class="form-group">
+                                 <label for="exampleInputNumber1">{{ form.status.label }}</label>
+                                 {{ form.status }}
+                              </div>
+                              <div class="form-group">
+                                 <label for="exampleFormControlTextarea1">{{ form.description.label }}</label>
+                                 {{ form.description }}
+                              </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlTextarea1">{{ form.image.label }}</label>
+                                   {{ form.image }}
+                              </div>
+                               <br>
+                              <button type="submit" class="btn btn-lg" style="background-color: #27b6b6; color: white;">Submit</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+{% endblock content %}

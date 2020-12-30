@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'chanel',
     # 'schedule',
     # 'djangobower'
+    'bootstrap_datepicker_plus',
+    'bootstrap4'
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -111,7 +113,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'social.wsgi.application'
-
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
